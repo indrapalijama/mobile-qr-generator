@@ -1,0 +1,111 @@
+<ion-content [fullscreen]="true">
+    <div class="main-container">
+        <!-- QR Preview Card -->
+        <ion-card class="qr-preview-card">
+            <ion-card-content>
+                <div class="qr-container" *ngIf="qrData">
+                    <qrcode [qrdata]="qrData" [width]="qrStyle.width"
+                        [errorCorrectionLevel]="qrStyle.errorCorrectionLevel" [margin]="qrStyle.margin"
+                        [colorDark]="qrStyle.colorDark" [colorLight]="qrStyle.colorLight" [allowEmptyString]="true"
+                        (qrCodeURL)="onQRCodeGenerated($event)">
+                    </qrcode>
+                </div>
+                <div class="qr-placeholder" *ngIf="!qrData">
+                    <ion-text color="medium">QR Preview</ion-text>
+                </div>
+            </ion-card-content>
+        </ion-card>
+
+        <!-- Controls Card -->
+        <ion-card class="controls-card">
+            <ion-card-content>
+                <!-- QR Type Selection -->
+                <div class="form-group">
+                    <ion-label>QR Code Type</ion-label>
+                    <ion-select [(ngModel)]="selectedTypeId" (ionChange)="onTypeChange()" interface="action-sheet"
+                        [interfaceOptions]="{ header: 'Select QR Code Type' }" placeholder="Select type">
+                        <ion-select-option *ngFor="let type of qrTypes" [value]="type.id">
+                            {{ type.name }}
+                        </ion-select-option>
+                    </ion-select>
+                </div>
+
+                <!-- Dynamic Form Fields -->
+                <div class="form-group" *ngIf="selectedType">
+                    <div *ngFor="let field of selectedType.fields" class="field-container">
+                        <ion-label>{{ field.label }}</ion-label>
+
+                        <ion-select *ngIf="field.type === 'select' && field.options" [(ngModel)]="formData[field.key]"
+                            [required]="field.required" interface="action-sheet"
+                            placeholder="Select {{ field.label.toLowerCase() }}">
+                            <ion-select-option *ngFor="let option of field.options" [value]="option">
+                                {{ option }}
+                            </ion-select-option>
+                        </ion-select>
+
+                        <ion-input *ngIf="field.type !== 'select'" [type]="field.type" [(ngModel)]="formData[field.key]"
+                            [required]="field.required" [placeholder]="'Enter ' + field.label.toLowerCase()">
+                        </ion-input>
+                    </div>
+                </div>
+
+                <!-- Customization Controls -->
+                <div class="customization-section">
+                    <!-- Size Control -->
+                    <div class="form-group">
+                        <ion-label>Size: {{ qrStyle.width }}px</ion-label>
+                        <ion-range [(ngModel)]="qrStyle.width" [min]="128" [max]="512" [step]="32" [pin]="true"
+                            [snaps]="true">
+                            <ion-note slot="start">128px</ion-note>
+                            <ion-note slot="end">512px</ion-note>
+                        </ion-range>
+                    </div>
+
+                    <!-- Error Correction -->
+                    <div class="form-group">
+                        <ion-label>Error Correction</ion-label>
+                        <ion-select [(ngModel)]="qrStyle.errorCorrectionLevel" interface="action-sheet"
+                            placeholder="Select error correction level">
+                            <ion-select-option value="L">Low (7%)</ion-select-option>
+                            <ion-select-option value="M">Medium (15%)</ion-select-option>
+                            <ion-select-option value="Q">Quartile (25%)</ion-select-option>
+                            <ion-select-option value="H">High (30%)</ion-select-option>
+                        </ion-select>
+                    </div>
+
+                    <!-- Margin Control -->
+                    <div class="form-group">
+                        <ion-label>Margin</ion-label>
+                        <ion-range [(ngModel)]="qrStyle.margin" [min]="0" [max]="8" [step]="1" [pin]="true"
+                            [snaps]="true">
+                            <ion-note slot="start">0</ion-note>
+                            <ion-note slot="end">8</ion-note>
+                        </ion-range>
+                    </div>
+
+                    <!-- Color Controls -->
+                    <div class="color-controls">
+                        <div class="form-group">
+                            <ion-label>Dark Color</ion-label>
+                            <ion-input type="color" [(ngModel)]="qrStyle.colorDark"></ion-input>
+                        </div>
+                        <div class="form-group">
+                            <ion-label>Light Color</ion-label>
+                            <ion-input type="color" [(ngModel)]="qrStyle.colorLight"></ion-input>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <ion-button expand="block" (click)="resetStyle()" fill="outline">
+                        Reset Style
+                    </ion-button>
+                    <ion-button expand="block" (click)="downloadQR()" [disabled]="!qrImageUrl">
+                        Download
+                    </ion-button>
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>
