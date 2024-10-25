@@ -11,7 +11,7 @@
                     </qrcode>
                 </div>
                 <div class="qr-placeholder" *ngIf="!qrData">
-                    <ion-text color="medium">QR Preview</ion-text>
+                    <ion-text color="medium">QR Code preview</ion-text>
                 </div>
             </ion-card-content>
         </ion-card>
@@ -21,7 +21,7 @@
             <ion-card-content>
                 <!-- QR Type Selection -->
                 <div class="form-group">
-                    <ion-label>QR Code Type</ion-label>
+                    <ion-label>QR Type</ion-label>
                     <ion-select [(ngModel)]="selectedTypeId" (ionChange)="onTypeChange()" interface="action-sheet"
                         [interfaceOptions]="{ header: 'Select QR Code Type' }" placeholder="Select type">
                         <ion-select-option *ngFor="let type of qrTypes" [value]="type.id">
@@ -49,6 +49,11 @@
                     </div>
                 </div>
 
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card class="controls-card">
+            <ion-card-content>
                 <!-- Customization Controls -->
                 <div class="customization-section">
                     <!-- Size Control -->
@@ -87,15 +92,32 @@
                     <div class="color-controls">
                         <div class="form-group">
                             <ion-label>Dark Color</ion-label>
-                            <ion-input type="color" [(ngModel)]="qrStyle.colorDark"></ion-input>
+                            <div class="color-preset-container">
+                                <div class="color-preset" *ngFor="let color of darkColors"
+                                    [style.background-color]="color" [class.selected]="qrStyle.colorDark === color"
+                                    (click)="qrStyle.colorDark = color">
+                                </div>
+                                <label class="color-picker-button">
+                                    <input type="color" [(ngModel)]="qrStyle.colorDark"
+                                        style="opacity: 0; position: absolute; width: 0; height: 0;">
+                                </label>
+                            </div>
                         </div>
                         <div class="form-group">
                             <ion-label>Light Color</ion-label>
-                            <ion-input type="color" [(ngModel)]="qrStyle.colorLight"></ion-input>
+                            <div class="color-preset-container">
+                                <div class="color-preset" *ngFor="let color of lightColors"
+                                    [style.background-color]="color" [class.selected]="qrStyle.colorLight === color"
+                                    (click)="qrStyle.colorLight = color">
+                                </div>
+                                <label class="color-picker-button">
+                                    <input type="color" [(ngModel)]="qrStyle.colorLight"
+                                        style="opacity: 0; position: absolute; width: 0; height: 0;">
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
-
                 <!-- Action Buttons -->
                 <div class="action-buttons">
                     <ion-button expand="block" (click)="resetStyle()" fill="outline">
@@ -108,4 +130,6 @@
             </ion-card-content>
         </ion-card>
     </div>
+
+
 </ion-content>

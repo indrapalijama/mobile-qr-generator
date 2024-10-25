@@ -2,7 +2,7 @@
 A dynamic QR code generator supporting multiple formats including WiFi, Contact Cards, Email, URL, and SMS.
 
 ## Live Demo
-Try out the application: [Mobile QR Generator](https://mobile-qr-generator.vercel.app/)
+Try out the application: [Mobile QR Generator](https://apasajaqr.vercel.app/)
 
 ## Project Structure
 ```

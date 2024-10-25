@@ -3,14 +3,9 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'qr',
-    loadChildren: () => import('./qr-code/qr-code.module').then(m => m.QrCodeModule)
-  },
-  {
     path: '',
-    redirectTo: 'qr',
-    pathMatch: 'full'
-  },
+    loadChildren: () => import('./qr-code/qr-code.module').then(m => m.QrCodeModule)
+  }
 ];
 
 @NgModule({

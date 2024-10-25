@@ -20,6 +20,22 @@ export class QrCodeComponent implements OnInit, DoCheck {
     qrStyle: QRCodeStyle = { ...DEFAULT_QR_STYLE };
     isMobile: boolean;
 
+    // Standard dark colors
+    darkColors: string[] = [
+        '#000000',  // Black
+        '#f44336',  // Red
+        '#4CAF50',  // Green
+
+    ];
+
+    // Standard light colors
+    lightColors: string[] = [
+        '#FFFFFF',  // White
+        '#FFCDD2',   // Light Red
+        '#C8E6C9',  // Light Green
+
+    ];
+
     constructor(
         private qrCodeService: QrCodeService,
         private sanitizer: DomSanitizer,
