@@ -1,6 +1,8 @@
 # Dynamic QR Code Generator - Ionic Angular
-
 A dynamic QR code generator supporting multiple formats including WiFi, Contact Cards, Email, URL, and SMS.
+
+## Live Demo
+Try out the application: [Mobile QR Generator](https://mobile-qr-generator.vercel.app/)
 
 ## Project Structure
 ```
@@ -25,7 +27,6 @@ src/
 ```
 
 ## Features
-
 - Multiple QR code formats support:
   - WiFi Networks
   - Contact Cards (MECARD)
@@ -38,9 +39,7 @@ src/
 - Type-safe implementation
 
 ## Extending the Application
-
 To add new QR code types:
-
 1. Add a new entry to `QR_CODE_TYPES` in `qr-code.config.ts`:
 ```typescript
 {
@@ -53,11 +52,9 @@ To add new QR code types:
   formatter: (data) => `Your formatted string here`
 }
 ```
-
 2. The new type will automatically appear in the dropdown and generate the appropriate form fields.
 
 ## Contributing
-
 1. Fork the repository
 2. Create a feature branch
 3. Commit your changes
@@ -65,5 +62,4 @@ To add new QR code types:
 5. Create a Pull Request
 
 ## License
-
 This project is licensed under the MIT License - see the LICENSE file for details.
